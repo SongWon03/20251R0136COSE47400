@@ -9,6 +9,8 @@ from PIL import Image
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 from IPython.display import display
+# !pip install clip-interrogator
+from clip_interrogator import Interrogator, Config
 
 
 class TF_IDF(nn.Module):
@@ -90,6 +92,19 @@ class ImageEncoder(object):
                 feature = self.model(batch).squeeze()  # (512,)
             img_features.append(feature.cpu())
         return img_features
+    
+    def generate_captions_for_images(self):
+        config = Config()
+        ci = Interrogator(config)
+        # generation with pre-trained caption generator
+        captions = []
+        for img_id in self.ids_for_matrix:
+            filename = f"{img_id:012d}.jpg"
+            path = os.path.join(self.img_dir, filename)
+            img = Image.open(path).convert('RGB')
+            prompt = ci.interrogate(img)
+            captions.append(prompt)
+        return captions
 
 
 def q_cos_similarity(data_type, text_encoder, feature_source, ids_for_matrix, query_text, top_k=5):
