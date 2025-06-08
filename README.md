@@ -47,3 +47,4 @@ Image-Encoder: **pretrained_ResNet18**
 |mixed-up 1 (OpenCLIP BERT + ResNet18)|0.219|0.487|0.611|53 sec|44 sec|
 |mixed-up 2 (TF-IDF + OpenCLIP ViT)|0.000|0.001|0.002|~0 sec|50 sec|
 
+![Recall@K Comparison Graph](https://github.com/SongWon03/20251R0136COSE47400/blob/main/Comparison%20of%20Recall@K%20for%20all%20models.png?raw=true)
